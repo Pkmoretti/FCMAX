@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Formulário de Informações</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f2f2f2;
+			margin: 0;
+			padding: 20px;
+			box-sizing: border-box;
+		}
+
+		h1 {
+			text-align: center;
+		}
+
+		form {
+			width: 300px;
+			margin: 0 auto;
+			background-color: #ffffff;
+			padding: 20px;
+			border-radius: 5px;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+		}
+
+		label {
+			display: block;
+			margin-bottom: 10px;
+			font-weight: bold;
+		}
+
+		input[type="radio"] {
+			display: none;
+		}
+
+		label.radio-label {
+			display: inline-block;
+			cursor: pointer;
+			padding: 5px 10px;
+			background-color: #f1f1f1;
+			border-radius: 5px;
+			margin-right: 10px;
+			color: #333333;
+			transition: background-color 0.3s ease;
+		}
+
+		label.radio-label:hover {
+			background-color: #e1e1e1;
+		}
+
+		input[type="number"] {
+			width: 100%;
+			padding: 5px;
+			border: 1px solid #cccccc;
+			border-radius: 5px;
+		}
+
+		input[type="button"] {
+			display: block;
+			margin-top: 10px;
+			width: 100%;
+			padding: 10px;
+			background-color: #4caf50;
+			color: #ffffff;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			font-size: 16px;
+			transition: background-color 0.3s ease;
+		}
+
+		input[type="button"]:hover {
+			background-color: #45a049;
+		}
+
+		#resultado {
+			margin-top: 20px;
+			background-color: #ffffff;
+			padding: 10px;
+			border-radius: 5px;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+		}
+
+		#resultado p {
+			margin: 0;
+		}
+
+        /* Estilo para destacar a seleção de gênero */
+        input[type="radio"]:checked + label.radio-label {
+	    background-color: #4caf50;
+	    color: #ffffff;
+}
+
+	</style>
+	<script>
+		function calcularFCMax() {
+			var genero = document.querySelector('input[name="genero"]:checked').value;
+			var idade = parseInt(document.getElementById('idade').value);
+			var fcmMax;
+
+			if (genero === "homem") {
+				fcmMax = 226 - idade;
+			} else if (genero === "mulher") {
+				fcmMax = 220 - idade;
+			}
+
+			var resultadoDiv = document.getElementById('resultado');
+			resultadoDiv.innerHTML = ""; // Limpar o conteúdo anterior
+
+			for (var i = 50; i <= 100; i += 5) {
+				var porcentagem = i / 100;
+				var valor = Math.round(fcmMax * porcentagem);
+				resultadoDiv.innerHTML += i + "% de FCMAX: " + valor + "<br>";
+			}
+		}
+	</script>
+</head>
+<body>
+	<h1>Formulário de Informações</h1>
+
+	<form>
+		<label for="genero">Gênero:</label>
+		<br>
+		<input type="radio" id="homemRadio" name="genero" value="homem">
+		<label class="radio-label" for="homemRadio">Homem</label>
+
+		<input type="radio" id="mulherRadio" name="genero" value="mulher">
+		<label class="radio-label" for="mulherRadio">Mulher</label>
+		<br><br>
+
+		<label for="idade">Idade:</label>
+		<br>
+		<input type="number" name="idade" id="idade">
+		<br><br>
+
+		<input type="button" value="Calcular" onclick="calcularFCMax()">
+	</form>
+
+	<div id="resultado"></div>
+</body>
+</html>
